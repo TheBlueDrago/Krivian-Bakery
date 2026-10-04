@@ -7,45 +7,52 @@
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍪</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Urbanist:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <script src="cart.js"></script>
 </head>
 <body>
-  <header class="site-header over-hero scrolled">
-    <div class="wrap">
-      <a class="brand" href="index.html"><b>Krivian</b><small>Bakery</small></a>
-      <nav class="nav-links" aria-label="Main">
-        <a href="index.html#menu">Menu</a>
-        <a href="index.html#how">How it works</a>
-        <a href="index.html#story">Our story</a>
-        <a href="index.html#faq">FAQ</a>
-      </nav>
-      <div class="nav-right">
-        <a class="cart-btn" href="cart.html">
-          <span class="cart-word">Cart</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 7h12l1 13H5L6 7z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg>
-          <span class="badge" data-cart-badge hidden>0</span>
-        </a>
-        <button class="icon-btn menu-toggle" type="button" data-menu-toggle aria-label="Open menu">☰</button>
+  <header class="site-header">
+    <div class="bar">
+      <a class="logo" href="index.html">Krivian</a>
+      <div class="bar-right">
+        <a class="pill light cart-pill" href="cart.html">Cart <span class="badge" data-cart-badge hidden>0</span></a>
+        <button class="burger" type="button" data-menu-toggle aria-label="Open menu"><span></span><span></span><span></span></button>
       </div>
     </div>
   </header>
 
-  <div class="page-banner">
-    <img src="https://images.unsplash.com/photo-1605243614624-277f48f46d52?auto=format&fit=crop&w=2000&q=70" alt="">
-    <div class="wrap">
-      <span class="eyebrow">Almost there</span>
-      <h1>Checkout</h1>
-    </div>
+  <div class="menu-overlay">
+    <button class="close-x" type="button" data-menu-toggle aria-label="Close menu"></button>
+    <nav aria-label="Main">
+      <a href="index.html#order">Order cookies</a>
+      <a href="index.html#cookies">Our cookies</a>
+      <a href="index.html#faq">FAQ</a>
+      <a href="cart.html">Cart</a>
+    </nav>
   </div>
 
   <main class="page">
-    <div class="wrap" id="checkout"></div>
+    <div class="wrap">
+      <div class="page-title">
+        <h1>Checkout</h1>
+        <p>Review your order</p>
+      </div>
+      <div id="checkout"></div>
+    </div>
   </main>
 
   <footer class="site-footer">
     <div class="wrap">
-      <div class="footer-bottom"><span>© <span id="year"></span> Krivian Bakery</span><a href="cart.html">Back to cart</a></div>
+      <div class="footer-top">
+        <a class="logo" href="index.html">Krivian</a>
+        <nav class="footer-links" aria-label="Footer">
+          <a href="index.html#order">Order online</a>
+          <a href="index.html#cookies">Our cookies</a>
+          <a href="cart.html">Cart</a>
+        </nav>
+      </div>
+      <div class="footer-bottom"><span>© <span id="year"></span> Krivian Bakery</span></div>
     </div>
   </footer>
 
@@ -75,9 +82,9 @@
               <div class="sum"><span>Subtotal</span><strong>${money(priceFor(n))}</strong></div>
               <div class="sum total"><span>Total</span><strong>${money(priceFor(n))}</strong></div>
             </div>
-            <button class="btn full" disabled>Pay ${money(priceFor(n))}</button>
+            <button class="pill solid full" disabled>Pay ${money(priceFor(n))}</button>
             <p class="secure">Payment isn't available yet</p>
-            <a class="btn ghost full" style="margin-top:14px" href="cart.html">Edit order</a>
+            <a class="pill full" style="margin-top:14px" href="cart.html">Edit order</a>
           </aside>
         </div>`;
     }

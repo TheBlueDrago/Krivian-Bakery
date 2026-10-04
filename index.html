@@ -8,135 +8,125 @@
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍪</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Urbanist:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <script src="cart.js"></script>
 </head>
 <body>
-  <header class="site-header over-hero">
-    <div class="wrap">
-      <a class="brand" href="index.html"><b>Krivian</b><small>Bakery</small></a>
-      <nav class="nav-links" aria-label="Main">
-        <a href="#menu">Menu</a>
-        <a href="#how">How it works</a>
-        <a href="#story">Our story</a>
-        <a href="#faq">FAQ</a>
-      </nav>
-      <div class="nav-right">
-        <button class="cart-btn" type="button" data-open-cart>
-          <span class="cart-word">Cart</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 7h12l1 13H5L6 7z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg>
-          <span class="badge" data-cart-badge hidden>0</span>
-        </button>
-        <button class="icon-btn menu-toggle" type="button" data-menu-toggle aria-label="Open menu">☰</button>
+  <header class="site-header">
+    <div class="bar">
+      <a class="logo" href="index.html">Krivian</a>
+      <div class="bar-right">
+        <button class="pill light cart-pill" type="button" data-open-cart>Cart <span class="badge" data-cart-badge hidden>0</span></button>
+        <button class="burger" type="button" data-menu-toggle aria-label="Open menu"><span></span><span></span><span></span></button>
       </div>
     </div>
   </header>
 
+  <div class="menu-overlay">
+    <button class="close-x" type="button" data-menu-toggle aria-label="Close menu"></button>
+    <nav aria-label="Main">
+      <a href="#order">Order cookies</a>
+      <a href="#cookies">Our cookies</a>
+      <a href="#faq">FAQ</a>
+      <a href="cart.html">Cart</a>
+    </nav>
+  </div>
+
   <main>
-    <section class="hero">
-      <img class="hero-bg" src="https://images.unsplash.com/photo-1584369372650-359b4003e743?auto=format&fit=crop&w=2000&q=80" alt="" fetchpriority="high">
-      <div class="wrap">
-        <span class="eyebrow">Small-batch cookie bakery</span>
-        <h1>Big. Thick.<br><em>Gooey in the middle.</em></h1>
-        <p>Krivian Bakery makes one thing: huge 6 oz chocolate chip cookies, baked tall and round with crisp golden edges and soft, melty centers.</p>
-        <div class="hero-actions">
-          <a class="btn" href="#menu">Order cookies</a>
-          <a class="btn outline-light" href="#story">Our story</a>
-        </div>
-        <div class="hero-facts">
-          <div><b>6 oz</b><span>every cookie</span></div>
-          <div><b>Packs of 4</b><span>order 4, 8 or 12</span></div>
-          <div><b>From $24</b><span>per pack of 4</span></div>
+    <section class="hero" aria-label="Krivian Bakery cookies">
+      <div class="slide on">
+        <img src="https://images.unsplash.com/photo-1684873878476-5384e3f87e0d?auto=format&fit=crop&w=2000&q=80" alt="Thick chocolate chip cookies on a cooling rack" fetchpriority="high">
+        <div class="slide-caption"><b>Chocolate chip</b> by Krivian</div>
+      </div>
+      <div class="slide">
+        <img src="https://images.unsplash.com/photo-1584369372650-359b4003e743?auto=format&fit=crop&w=2000&q=80" alt="A big, thick chocolate chip cookie on a baking sheet" loading="lazy">
+        <div class="slide-caption"><b>6 oz cookies</b> by Krivian</div>
+      </div>
+      <div class="slide">
+        <img src="https://images.unsplash.com/photo-1605243614624-277f48f46d52?auto=format&fit=crop&w=2000&q=80" alt="A tall stack of chocolate chip cookies" loading="lazy">
+        <div class="slide-caption"><b>Baked fresh</b> by Krivian</div>
+      </div>
+      <a class="pill glass hero-cta" href="#order">Order cookies</a>
+      <div class="dots"></div>
+    </section>
+
+    <section class="split" id="cookies">
+      <div class="wrap split-grid">
+        <img src="https://images.unsplash.com/photo-1611945008033-aaa49685e072?auto=format&fit=crop&w=900&q=80" alt="Big balls of cookie dough with chocolate chunks" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?auto=format&fit=crop&w=900&q=80" alt="Chunky chocolate chip cookies broken open" loading="lazy">
+        <div class="split-text">
+          <h2>Our<br>cookies</h2>
+          <p>Our cookies aren't thin or flat. Each one is a full 6 oz, rolled tall so it bakes up big, thick and round, with golden edges and a soft, gooey middle.</p>
+          <a class="pill big" href="#order">Order<br>yours</a>
         </div>
       </div>
     </section>
 
-    <div class="marquee" aria-hidden="true">
-      <div class="marquee-track">
-        <span>Big &amp; thick</span><span>Crisp golden edges</span><span>Gooey centers</span><span>6 oz each</span><span>Packs of 4, 8 &amp; 12</span><span>Baked fresh</span>
-        <span>Big &amp; thick</span><span>Crisp golden edges</span><span>Gooey centers</span><span>6 oz each</span><span>Packs of 4, 8 &amp; 12</span><span>Baked fresh</span>
+    <section class="section store" id="order">
+      <div class="wrap">
+        <div class="title">
+          <h2>Order online</h2>
+          <p>Chocolate chip cookies, 6 oz each, sold in packs of 4.</p>
+        </div>
+        <div class="store-grid">
+          <article class="product">
+            <div class="product-img"><img src="https://images.unsplash.com/photo-1600147566401-c2056eb69479?auto=format&fit=crop&w=800&q=80" alt="Close-up of a thick chocolate chip cookie" loading="lazy"></div>
+            <div class="product-body">
+              <h3>4 Cookies</h3>
+              <span class="sub">1 pack · 6 oz each</span>
+              <div class="price">$24</div>
+              <button class="pill add-btn" type="button" data-add="4">Add to cart</button>
+            </div>
+          </article>
+          <article class="product">
+            <div class="product-img"><img src="https://images.unsplash.com/photo-1621297075730-16b5bd8913cf?auto=format&fit=crop&w=800&q=80" alt="A thick chocolate chip cookie on a plate" loading="lazy"><span class="ribbon">Popular</span></div>
+            <div class="product-body">
+              <h3>8 Cookies</h3>
+              <span class="sub">2 packs · 6 oz each</span>
+              <div class="price">$45</div>
+              <button class="pill add-btn" type="button" data-add="8">Add to cart</button>
+            </div>
+          </article>
+          <article class="product">
+            <div class="product-img"><img src="https://images.unsplash.com/photo-1605243614624-277f48f46d52?auto=format&fit=crop&w=800&q=80" alt="A stack of chocolate chip cookies" loading="lazy"><span class="ribbon">Best value</span></div>
+            <div class="product-body">
+              <h3>12 Cookies</h3>
+              <span class="sub">3 packs · 6 oz each</span>
+              <div class="price">$65</div>
+              <button class="pill add-btn" type="button" data-add="12">Add to cart</button>
+            </div>
+          </article>
+        </div>
+        <p class="store-note">Cookies come in packs of 4. You can order up to 12 cookies at a time.</p>
       </div>
+    </section>
+
+    <div class="photo-pair">
+      <img src="https://images.unsplash.com/photo-1506184341422-6cc152ae474b?auto=format&fit=crop&w=1200&q=80" alt="Rows of thick cookie dough balls" loading="lazy">
+      <img src="https://images.unsplash.com/photo-1592173376801-185310a68dea?auto=format&fit=crop&w=1200&q=80" alt="A whisk over a bowl of chocolate chip cookie dough" loading="lazy">
+      <a class="pill glass" href="#order">Order online</a>
     </div>
 
-    <section id="menu">
-      <div class="wrap">
-        <div class="section-head">
-          <span class="eyebrow">The menu</span>
-          <h2>One cookie. <em>Done right.</em></h2>
-          <p>We don't do a long menu. We make one cookie and put everything into it.</p>
-        </div>
+    <div class="script-mark">Krivian</div>
 
-        <div class="menu-card">
-          <div class="menu-photo">
-            <img src="https://images.unsplash.com/photo-1621297075730-16b5bd8913cf?auto=format&fit=crop&w=1200&q=80" alt="A thick, round chocolate chip cookie on a plate" loading="lazy">
-            <span class="pill">6 oz · Sold in packs of 4</span>
-          </div>
-          <div class="menu-body">
-            <span class="eyebrow">Signature</span>
-            <h3>Chocolate Chip Cookies</h3>
-            <p class="desc">Big, round and thick, not flat. Each cookie weighs 6 oz, with crisp, golden edges and a soft, gooey middle loaded with chocolate chips.</p>
-            <ul class="menu-list">
-              <li>
-                <span class="item">4 Cookies<small>1 pack</small></span>
-                <span class="dots"></span>
-                <span class="price">$24</span>
-                <button class="add-btn" type="button" data-add="4">Add</button>
-              </li>
-              <li>
-                <span class="item">8 Cookies <span class="tag">Popular</span><small>2 packs</small></span>
-                <span class="dots"></span>
-                <span class="price">$45</span>
-                <button class="add-btn" type="button" data-add="8">Add</button>
-              </li>
-              <li>
-                <span class="item">12 Cookies <span class="tag">Best value</span><small>3 packs</small></span>
-                <span class="dots"></span>
-                <span class="price">$65</span>
-                <button class="add-btn" type="button" data-add="12">Add</button>
-              </li>
-            </ul>
-            <p class="menu-note">Cookies are sold in packs of 4. Max 12 cookies per order.</p>
-          </div>
+    <section class="trio">
+      <img src="https://images.unsplash.com/photo-1697320866906-e6c576fdab1a?auto=format&fit=crop&w=900&q=80" alt="Rows of thick chocolate chip cookie dough balls" loading="lazy">
+      <div class="trio-text">
+        <div>
+          <p>We make one thing and we make it well: a big chocolate chip cookie with a crisp outside and a soft, melty center.</p>
+          <p>Every cookie is weighed, shaped by hand and baked tall, so it comes out round and thick every time.</p>
         </div>
       </div>
+      <img src="https://images.unsplash.com/photo-1720455760899-c46c777b5fcf?auto=format&fit=crop&w=900&q=80" alt="Chocolate chip cookie dough in a mixing bowl" loading="lazy">
+      <div class="trio-text"><p class="big-line">Big, thick cookies<b>baked with love</b></p></div>
+      <img src="https://images.unsplash.com/photo-1584369372650-359b4003e743?auto=format&fit=crop&w=900&q=80" alt="A big, thick chocolate chip cookie" loading="lazy">
+      <div class="trio-head"><h2>From our oven<br>to you</h2></div>
     </section>
 
-    <section id="how" class="steps">
+    <section class="section faq" id="faq">
       <div class="wrap">
-        <div class="section-head">
-          <span class="eyebrow">How it works</span>
-          <h2>Cookies in <em>three steps</em></h2>
-        </div>
-        <div class="steps-grid">
-          <div class="step"><div class="num">01</div><h3>Pick your pack</h3><p>Choose 4, 8 or 12 cookies. Bigger packs save you money.</p></div>
-          <div class="step"><div class="num">02</div><h3>Check out</h3><p>Review your order in the cart and head to checkout.</p></div>
-          <div class="step"><div class="num">03</div><h3>Dig in</h3><p>Warm them for a few minutes and the middle gets extra gooey.</p></div>
-        </div>
-      </div>
-    </section>
-
-    <section id="story">
-      <div class="wrap story-grid">
-        <div class="story-photos">
-          <img class="main" src="https://images.unsplash.com/photo-1605243614624-277f48f46d52?auto=format&fit=crop&w=1000&q=80" alt="A tall stack of thick chocolate chip cookies" loading="lazy">
-          <img class="float" src="https://images.unsplash.com/photo-1600147566401-c2056eb69479?auto=format&fit=crop&w=600&q=80" alt="Close-up of a chunky chocolate chip cookie" loading="lazy">
-        </div>
-        <div class="story-text">
-          <span class="eyebrow">Our story</span>
-          <h2>Why we only make <em>one cookie</em></h2>
-          <p>Most bakeries do a little of everything. At Krivian Bakery we picked the cookie everyone loves and made it bigger, thicker and better.</p>
-          <p>Every cookie is a full 6 oz, shaped tall so it bakes up round and domed instead of spreading flat. You get a crisp outside, a soft center and chocolate in every bite.</p>
-          <a class="btn" href="#menu">Order a pack</a>
-        </div>
-      </div>
-    </section>
-
-    <section id="faq" class="faq">
-      <div class="wrap">
-        <div class="section-head">
-          <span class="eyebrow">FAQ</span>
-          <h2>Good <em>questions</em></h2>
-        </div>
+        <div class="title"><h2>Questions</h2></div>
         <div class="faq-list">
           <details open>
             <summary>How many cookies can I order?</summary>
@@ -158,35 +148,69 @@
       </div>
     </section>
 
-    <section class="cta">
-      <img src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?auto=format&fit=crop&w=2000&q=80" alt="" loading="lazy">
-      <div class="wrap">
-        <span class="eyebrow">Ready?</span>
-        <h2>Your cookies are <em>waiting.</em></h2>
-        <p>Packs of 4, 8 or 12. Starting at $24.</p>
-        <a class="btn light" href="#menu">Order now</a>
+    <section class="info">
+      <div class="wrap info-grid">
+        <div>
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7.5 12 3l9 4.5v9L12 21l-9-4.5z"/><path d="M3 7.5 12 12l9-4.5M12 12v9"/></svg>
+          <h4>Packs of 4</h4>
+          <p>Order 4, 8 or 12 cookies</p>
+        </div>
+        <div>
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="9" cy="9" r="1"/><circle cx="15" cy="10" r="1"/><circle cx="10" cy="15" r="1"/><circle cx="15.5" cy="15" r="1"/></svg>
+          <h4>6 oz each</h4>
+          <p>Big, thick and round</p>
+        </div>
+        <div>
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"/><circle cx="7.5" cy="7.5" r="1.5"/></svg>
+          <h4>From $24</h4>
+          <p>4 for $24 · 8 for $45 · 12 for $65</p>
+        </div>
       </div>
     </section>
   </main>
 
   <footer class="site-footer">
     <div class="wrap">
-      <div class="footer-grid">
-        <div>
-          <a class="brand" href="index.html"><b>Krivian</b><small>Bakery</small></a>
-          <p>Big, thick 6 oz chocolate chip cookies, sold in packs of 4.</p>
-        </div>
-        <div>
-          <h4>Explore</h4>
-          <ul><li><a href="#menu">Menu</a></li><li><a href="#story">Our story</a></li><li><a href="#faq">FAQ</a></li></ul>
-        </div>
-        <div>
-          <h4>Order</h4>
-          <ul><li><a href="cart.html">Cart</a></li><li><a href="billing.html">Checkout</a></li></ul>
-        </div>
+      <div class="footer-top">
+        <a class="logo" href="index.html">Krivian</a>
+        <nav class="footer-links" aria-label="Footer">
+          <a href="#order">Order online</a>
+          <a href="#cookies">Our cookies</a>
+          <a href="#faq">FAQ</a>
+          <a href="cart.html">Cart</a>
+        </nav>
       </div>
-      <div class="footer-bottom"><span>© <span id="year"></span> Krivian Bakery</span><span>Made with butter &amp; chocolate</span></div>
+      <div class="footer-bottom">
+        <span>© <span id="year"></span> Krivian Bakery · Big chocolate chip cookies</span>
+        <button class="to-top" type="button" data-top aria-label="Back to top">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+        </button>
+      </div>
     </div>
   </footer>
+
+  <script>
+    // Hero slider: fades through the slides every 5 seconds; dots jump to a slide.
+    (() => {
+      const slides = [...document.querySelectorAll('.slide')];
+      const dots = document.querySelector('.dots');
+      let i = 0, timer;
+      slides.forEach((_, n) => {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.setAttribute('aria-label', `Show slide ${n + 1}`);
+        b.addEventListener('click', () => { show(n); restart(); });
+        dots.append(b);
+      });
+      function show(n) {
+        i = (n + slides.length) % slides.length;
+        slides.forEach((s, k) => s.classList.toggle('on', k === i));
+        [...dots.children].forEach((d, k) => d.classList.toggle('on', k === i));
+      }
+      function restart() { clearInterval(timer); timer = setInterval(() => show(i + 1), 5000); }
+      show(0);
+      restart();
+    })();
+  </script>
 </body>
 </html>

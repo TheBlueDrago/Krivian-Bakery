@@ -56,7 +56,7 @@ function emptyState() {
       <div class="empty-icon">🍪</div>
       <h3>Your cart is empty</h3>
       <p>Pick a pack of 4, 8 or 12 cookies to get started.</p>
-      <a class="btn" href="index.html#menu" data-close>See the menu</a>
+      <a class="pill solid" href="index.html#order" data-close>Order cookies</a>
     </div>`;
 }
 
@@ -67,7 +67,7 @@ function mountDrawer() {
     <aside class="drawer" aria-label="Your cart">
       <div class="drawer-head">
         <h2>Your order</h2>
-        <button type="button" class="icon-btn" data-close aria-label="Close cart">✕</button>
+        <button type="button" class="close-x" data-close aria-label="Close cart"></button>
       </div>
       <div class="drawer-body" id="drawer-body"></div>
     </aside>`;
@@ -81,8 +81,8 @@ function renderDrawer(n) {
     <div class="drawer-items">${lineItem(n)}<p class="hint">Cookies come in packs of 4. Max 12 per order.</p></div>
     <div class="drawer-foot">
       <div class="sum"><span>Subtotal</span><strong>${money(priceFor(n))}</strong></div>
-      <a class="btn full" href="billing.html">Checkout</a>
-      <a class="btn ghost full" href="cart.html">View cart</a>
+      <a class="pill solid full" href="billing.html">Checkout</a>
+      <a class="pill full" href="cart.html">View cart</a>
     </div>` : emptyState();
 }
 
@@ -95,7 +95,7 @@ function renderCart() {
   document.querySelectorAll('[data-add]').forEach(btn => {
     const inCart = Number(btn.dataset.add) === n;
     btn.classList.toggle('in-cart', inCart);
-    btn.textContent = inCart ? 'In cart ✓' : 'Add';
+    btn.textContent = inCart ? 'In cart ✓' : 'Add to cart';
   });
   renderDrawer(n);
   if (typeof renderPage === 'function') renderPage(n);
@@ -115,22 +115,18 @@ document.addEventListener('click', e => {
   else if (t.matches('[data-close]')) closeCart();
 });
 
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeCart(); });
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') { closeCart(); document.body.classList.remove('nav-open'); }
+});
 window.addEventListener('storage', e => { if (e.key === KEY) renderCart(); });
 
 document.addEventListener('DOMContentLoaded', () => {
   mountDrawer();
   renderCart();
-  document.querySelectorAll('.nav-links a').forEach(a =>
+  document.querySelectorAll('.menu-overlay a').forEach(a =>
     a.addEventListener('click', () => document.body.classList.remove('nav-open')));
-
-  // Header turns solid once you scroll past the top of the page.
-  const header = document.querySelector('.site-header');
-  if (header && header.classList.contains('over-hero')) {
-    const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 40);
-    onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
-  }
+  document.querySelectorAll('[data-top]').forEach(b =>
+    b.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' })));
   const year = document.getElementById('year');
   if (year) year.textContent = new Date().getFullYear();
 });
