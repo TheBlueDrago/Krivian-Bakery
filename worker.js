@@ -31,6 +31,8 @@ async function read(env, token) {
 export default {
   async fetch(req, env) {
     const url = new URL(req.url), path = url.pathname, origin = url.origin;
+    // The old workers.dev address (and www) permanently moves to krivianbakery.com, so search engines list the real one.
+    if (url.hostname.endsWith(".workers.dev") || url.hostname === "www.krivianbakery.com") return Response.redirect("https://krivianbakery.com" + path + url.search, 301);
     if (path === "/auth/google") {
       if (!env.GOOGLE_CLIENT_ID) return new Response("Google sign-in isn't set up yet.", { status: 503 });
       const state = b64u(crypto.getRandomValues(new Uint8Array(16)));
