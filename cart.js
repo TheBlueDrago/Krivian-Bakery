@@ -5,7 +5,7 @@ const SIZES = [4, 8, 12];
 const MAX = 12;
 const KEY = 'krivian-cart';
 
-const photo = (id, w) => `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w}&q=80`;
+const photo = (id, w) => "img/chocolate-chip.jpg";
 const PRODUCT_PHOTO = '1621297075730-16b5bd8913cf';
 
 let memoryCount = 0; // used when the browser blocks storage
