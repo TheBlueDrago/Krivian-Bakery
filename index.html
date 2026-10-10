@@ -59,6 +59,11 @@
         <img src="https://images.unsplash.com/photo-1605243614624-277f48f46d52?auto=format&fit=crop&w=1600&q=78" srcset="https://images.unsplash.com/photo-1605243614624-277f48f46d52?auto=format&fit=crop&w=800&q=78 800w, https://images.unsplash.com/photo-1605243614624-277f48f46d52?auto=format&fit=crop&w=1200&q=78 1200w, https://images.unsplash.com/photo-1605243614624-277f48f46d52?auto=format&fit=crop&w=1600&q=78 1600w, https://images.unsplash.com/photo-1605243614624-277f48f46d52?auto=format&fit=crop&w=2200&q=78 2200w" sizes="100vw" alt="A tall stack of chocolate chip cookies" loading="lazy">
         <div class="slide-caption"><b>Baked fresh</b> by Krivian</div>
       </div>
+      <div class="hero-copy">
+        <span class="hero-kicker">Georgetown, TX</span>
+        <h1>Big. Thick.<em>Gooey.</em></h1>
+        <p>6 oz chocolate chip cookies, baked fresh.</p>
+      </div>
       <a class="pill glass hero-cta" href="#order">Order cookies</a>
       <div class="dots"></div>
     </section>
@@ -85,25 +90,27 @@
           <article class="product">
             <div class="product-img"><img src="https://images.unsplash.com/photo-1600147566401-c2056eb69479?auto=format&fit=crop&w=800&q=78" srcset="https://images.unsplash.com/photo-1600147566401-c2056eb69479?auto=format&fit=crop&w=400&q=78 400w, https://images.unsplash.com/photo-1600147566401-c2056eb69479?auto=format&fit=crop&w=800&q=78 800w, https://images.unsplash.com/photo-1600147566401-c2056eb69479?auto=format&fit=crop&w=1200&q=78 1200w" sizes="(max-width: 700px) 100vw, 50vw" alt="Close-up of a thick chocolate chip cookie" loading="lazy"></div>
             <div class="product-body">
-              <h3>4 Cookies</h3>
+              <h3>4 Cookies</h3><span class="each">$6.00 per cookie</span>
               <span class="sub">1 pack · 6 oz each</span>
               <div class="price">$24</div>
               <button class="pill add-btn" type="button" data-add="4">Add to cart</button>
             </div>
           </article>
-          <article class="product">
+          <article class="product featured">
+            <span class="ribbon">Most popular</span>
             <div class="product-img"><img src="https://images.unsplash.com/photo-1621297075730-16b5bd8913cf?auto=format&fit=crop&w=800&q=78" srcset="https://images.unsplash.com/photo-1621297075730-16b5bd8913cf?auto=format&fit=crop&w=400&q=78 400w, https://images.unsplash.com/photo-1621297075730-16b5bd8913cf?auto=format&fit=crop&w=800&q=78 800w, https://images.unsplash.com/photo-1621297075730-16b5bd8913cf?auto=format&fit=crop&w=1200&q=78 1200w" sizes="(max-width: 700px) 100vw, 50vw" alt="A thick chocolate chip cookie on a plate" loading="lazy"><span class="ribbon">Popular</span></div>
             <div class="product-body">
-              <h3>8 Cookies</h3>
+              <h3>8 Cookies</h3><span class="each">$5.63 per cookie</span>
               <span class="sub">2 packs · 6 oz each</span>
               <div class="price">$45</div>
               <button class="pill add-btn" type="button" data-add="8">Add to cart</button>
             </div>
           </article>
           <article class="product">
+            <span class="ribbon alt">Best value</span>
             <div class="product-img"><img src="https://images.unsplash.com/photo-1605243614624-277f48f46d52?auto=format&fit=crop&w=800&q=78" srcset="https://images.unsplash.com/photo-1605243614624-277f48f46d52?auto=format&fit=crop&w=400&q=78 400w, https://images.unsplash.com/photo-1605243614624-277f48f46d52?auto=format&fit=crop&w=800&q=78 800w, https://images.unsplash.com/photo-1605243614624-277f48f46d52?auto=format&fit=crop&w=1200&q=78 1200w" sizes="(max-width: 700px) 100vw, 50vw" alt="A stack of chocolate chip cookies" loading="lazy"><span class="ribbon">Best value</span></div>
             <div class="product-body">
-              <h3>12 Cookies</h3>
+              <h3>12 Cookies</h3><span class="each">$5.42 per cookie</span>
               <span class="sub">3 packs · 6 oz each</span>
               <div class="price">$65</div>
               <button class="pill add-btn" type="button" data-add="12">Add to cart</button>
@@ -111,6 +118,17 @@
           </article>
         </div>
         <p class="store-note">Cookies come in packs of 4. You can order up to 12 cookies at a time.</p>
+      </div>
+    </section>
+
+    <section class="section steps">
+      <div class="wrap">
+        <div class="title"><h2>How it works</h2></div>
+        <ol class="steps-grid">
+          <li><span>1</span><h3>Pick a pack</h3><p>4, 8 or 12 big cookies.</p></li>
+          <li><span>2</span><h3>Check out</h3><p>Log in with Google and add your details.</p></li>
+          <li><span>3</span><h3>We bake</h3><p>Your cookies are baked fresh for your order.</p></li>
+        </ol>
       </div>
     </section>
 
@@ -279,5 +297,13 @@
       addEventListener("scroll", u, { passive: true }); u();
     })();
   </script>
+<script>
+(function () {
+  if (!("IntersectionObserver" in window) || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  var els = document.querySelectorAll(".title, .product, .steps-grid li, .split-text, .trio-text, .info-grid > div, .faq-list");
+  var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }); }, { rootMargin: "0px 0px -8% 0px" });
+  els.forEach(function (el, i) { el.classList.add("reveal"); el.style.transitionDelay = (i % 3) * 90 + "ms"; io.observe(el); });
+})();
+</script>
 </body>
 </html>
