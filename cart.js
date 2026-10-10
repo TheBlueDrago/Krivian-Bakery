@@ -1,12 +1,26 @@
-// Krivian Bakery cart: one order of 4, 8 or 12 cookies (12 max).
+// Krivian Bakery cart: one order of 4, 8 or 12 cookies (12 max), in one flavor.
 // Prices are per order size, not per cookie.
 const PRICES = { 4: 24, 8: 45, 12: 65 };
 const SIZES = [4, 8, 12];
 const MAX = 12;
 const KEY = 'krivian-cart';
 
-const photo = (id, w) => "img/chocolate-chip.jpg";
-const PRODUCT_PHOTO = '1621297075730-16b5bd8913cf';
+const FLAVORS = {
+  chip: { name: 'Chocolate Chip', img: 'img/chocolate-chip.jpg' },
+  triple: { name: 'Triple Chocolate', img: 'img/double-chocolate.jpg' },
+};
+const FLAVOR_KEY = 'krivian-flavor';
+let memoryFlavor = 'chip';
+
+function getFlavor() {
+  try { const f = localStorage.getItem(FLAVOR_KEY); return FLAVORS[f] ? f : 'chip'; } catch { return memoryFlavor; }
+}
+function setFlavor(f) {
+  f = FLAVORS[f] ? f : 'chip';
+  memoryFlavor = f;
+  try { localStorage.setItem(FLAVOR_KEY, f); } catch {}
+  renderCart();
+}
 
 let memoryCount = 0; // used when the browser blocks storage
 
@@ -36,18 +50,27 @@ function sizePicker(n) {
     </button>`).join('')}</div>`;
 }
 
+function flavorPicker() {
+  const f = getFlavor();
+  return `<div class="flavors" role="group" aria-label="Flavor">${Object.entries(FLAVORS).map(([k, v]) => `
+    <button type="button" data-flavor="${k}" class="${k === f ? 'on' : ''}" aria-pressed="${k === f}">
+      <img src="${v.img}" alt=""><span>${v.name}</span>
+    </button>`).join('')}</div>`;
+}
+
 function lineItem(n, { picker = true } = {}) {
+  const fl = FLAVORS[getFlavor()];
   return `
     <div class="line">
-      <img src="${photo(PRODUCT_PHOTO, 240)}" alt="Chocolate chip cookies">
+      <img src="${fl.img}" alt="${fl.name} cookies">
       <div class="line-info">
-        <h3>Chocolate Chip Cookies</h3>
+        <h3>${fl.name} Cookies</h3>
         <p>${n} cookies · 6 oz each · ${packs(n)}</p>
         ${picker ? `<button type="button" class="link" data-clear>Remove</button>` : ''}
       </div>
       <strong>${money(priceFor(n))}</strong>
     </div>
-    ${picker ? sizePicker(n) : ''}`;
+    ${picker ? flavorPicker() + sizePicker(n) : ''}`;
 }
 
 function emptyState() {
@@ -97,6 +120,7 @@ function renderCart() {
     btn.classList.toggle('in-cart', inCart);
     btn.textContent = inCart ? 'In cart ✓' : 'Add to cart';
   });
+  document.querySelectorAll('[data-flavor-picker]').forEach(el => { el.innerHTML = flavorPicker(); });
   renderDrawer(n);
   if (typeof renderPage === 'function') renderPage(n);
 }
@@ -105,10 +129,11 @@ const openCart = () => document.body.classList.add('cart-open');
 const closeCart = () => document.body.classList.remove('cart-open');
 
 document.addEventListener('click', e => {
-  const t = e.target.closest('[data-add],[data-size],[data-clear],[data-open-cart],[data-close],[data-menu-toggle]');
+  const t = e.target.closest('[data-add],[data-size],[data-flavor],[data-clear],[data-open-cart],[data-close],[data-menu-toggle]');
   if (!t) return;
   if (t.matches('[data-add]')) { setCount(Number(t.dataset.add)); openCart(); }
   else if (t.matches('[data-size]')) setCount(Number(t.dataset.size));
+  else if (t.matches('[data-flavor]')) setFlavor(t.dataset.flavor);
   else if (t.matches('[data-clear]')) setCount(0);
   else if (t.matches('[data-open-cart]')) { e.preventDefault(); document.body.classList.remove('nav-open'); openCart(); }
   else if (t.matches('[data-menu-toggle]')) document.body.classList.toggle('nav-open');
