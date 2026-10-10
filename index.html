@@ -181,6 +181,8 @@
     </section>
   </main>
 
+  <a class="order-bar" href="#order" aria-hidden="true" tabindex="-1"><span><b>Big 6 oz cookies</b>4 for $24 · 8 for $45 · 12 for $65</span><em>Order</em></a>
+
   <footer class="site-footer">
     <div class="wrap">
       <div class="footer-top">
@@ -266,6 +268,15 @@
       hero.addEventListener('pointercancel', end);
       hero.addEventListener('pointerleave', end);
       hero.style.touchAction = 'pan-y';
+    })();
+  </script>
+  <script>
+    // Phones: an Order bar slides up once you scroll past the top photos, and hides at the menu itself and the footer.
+    (() => {
+      const bar = document.querySelector(".order-bar"), hero = document.querySelector(".hero"), order = document.getElementById("order"), foot = document.querySelector(".site-footer");
+      if (!bar || !hero || !order || !foot) return;
+      const u = () => { const past = hero.getBoundingClientRect().bottom < 0, r = order.getBoundingClientRect(), atMenu = r.top < innerHeight && r.bottom > 0, atFoot = foot.getBoundingClientRect().top < innerHeight; bar.classList.toggle("on", past && !atMenu && !atFoot); };
+      addEventListener("scroll", u, { passive: true }); u();
     })();
   </script>
 </body>

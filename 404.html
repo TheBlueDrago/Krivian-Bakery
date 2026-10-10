@@ -59,32 +59,5 @@
     </div>
   </footer>
 
-  <script>
-    function renderPage(n) {
-      const el = document.getElementById('cart-page');
-      if (!n) {
-        el.innerHTML = `<div class="card" style="max-width:560px;margin:0 auto">${emptyState()}</div>`;
-        return;
-      }
-      el.innerHTML = `
-        <div class="page-grid">
-          <div class="card">
-            <h2>Your cookies</h2>
-            ${lineItem(n, { picker: false })}
-            <p class="sizes-label">Change pack size</p>
-            ${sizePicker(n)}
-            <p class="hint">Cookies come in packs of 4. Max 12 per order.</p>
-            <p style="margin:22px 0 0"><button type="button" class="link" data-clear>Remove from cart</button></p>
-          </div>
-          <aside class="card summary">
-            <h2>Summary</h2>
-            <div class="sum"><span>${n} Chocolate Chip Cookies</span><strong>${money(priceFor(n))}</strong></div>
-            <div class="sum total"><span>Total</span><strong>${money(priceFor(n))}</strong></div>
-            <a class="pill solid full" href="/billing.html">Checkout</a>
-            <a class="pill full" style="margin-top:10px" href="/index.html#order">Keep shopping</a>
-          </aside>
-        </div>`;
-    }
-  </script>
 </body>
 </html>
