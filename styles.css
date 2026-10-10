@@ -438,3 +438,11 @@ h1, h2, h3, h4 { font-weight: 700; text-transform: uppercase; color: var(--headi
 .flavors button:hover { border-color: var(--wine); }
 .flavors button.on { background: var(--wine); border-color: var(--wine); color: #fff; }
 .drawer .flavors, .line + .flavors { justify-content: flex-start; }
+
+/* 8 flavors: a tidy grid on the menu, compact in the cart */
+.flavor-wrap .flavors { display: grid; grid-template-columns: repeat(4, 1fr); max-width: 1000px; margin: 14px auto; }
+.flavor-wrap .flavors button { text-align: left; line-height: 1.2; font-size: .78rem; }
+.drawer .flavors, .line + .flavors { gap: 8px; }
+.drawer .flavors button, .line + .flavors button { font-size: .72rem; padding: 4px 12px 4px 4px; }
+.drawer .flavors button img, .line + .flavors button img { width: 28px; height: 28px; }
+@media (max-width: 900px) { .flavor-wrap .flavors { grid-template-columns: repeat(2, 1fr); } }

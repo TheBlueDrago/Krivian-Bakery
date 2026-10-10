@@ -8,6 +8,12 @@ const KEY = 'krivian-cart';
 const FLAVORS = {
   chip: { name: 'Chocolate Chip', img: 'img/chocolate-chip.jpg' },
   triple: { name: 'Triple Chocolate', img: 'img/double-chocolate.jpg' },
+  walnut: { name: 'Chocolate Chip Walnut', img: 'img/chocolate-chip.jpg' },
+  twochip: { name: 'Two Chip Chocolate Chip', img: 'img/chocolate-chip.jpg' },
+  macadamia: { name: 'White Chocolate Macadamia', img: 'img/chocolate-chip.jpg' },
+  darkchip: { name: 'Dark Chocolate Chocolate Chip', img: 'img/double-chocolate.jpg' },
+  darkpb: { name: 'Dark Chocolate Peanut Butter Chip', img: 'img/double-chocolate.jpg' },
+  oatmeal: { name: 'Oatmeal Raisin', img: 'img/chocolate-chip.jpg' },
 };
 const FLAVOR_KEY = 'krivian-flavor';
 let memoryFlavor = 'chip';
