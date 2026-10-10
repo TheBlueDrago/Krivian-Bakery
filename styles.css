@@ -322,3 +322,38 @@ h1, h2, h3, h4 { font-weight: 700; text-transform: uppercase; color: var(--headi
 .gbtn { display: flex; align-items: center; justify-content: center; gap: 12px; padding: 14px 18px; border-radius: 999px; border: 1px solid #dadce0; background: #fff; color: #3c4043; font: 700 16px var(--sans); text-decoration: none; transition: box-shadow .2s, transform .2s; }
 .gbtn:hover { box-shadow: 0 6px 18px rgba(0,0,0,.12); transform: translateY(-1px); }
 .signin-card .back { display: inline-block; margin-top: 18px; color: var(--wine); font-size: .95rem; }
+
+
+/* ---------- Privacy & Terms ---------- */
+.legal .wrap { max-width: 780px; }
+.legal-nav { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: -20px 0 40px; }
+.legal-nav a { padding: 8px 16px; border-radius: 999px; border: 1px solid var(--line); color: var(--wine); text-decoration: none; font-weight: 700; font-size: .95rem; background: var(--white); }
+.legal section { background: var(--white); border: 1px solid var(--line); border-radius: 18px; padding: 28px 30px; margin-bottom: 22px; scroll-margin-top: calc(var(--bar) + 16px); }
+.legal h2 { margin: 0 0 12px; color: var(--wine); }
+.legal h3 { margin: 22px 0 8px; font-size: 1.05rem; color: var(--heading); }
+.legal p, .legal li { line-height: 1.7; }
+.legal ul { padding-left: 20px; margin: 8px 0; }
+
+.signin-card .agree { font-size: .85rem; margin: 16px 0 0; color: var(--text); }
+.signin-card .agree a { color: var(--wine); }
+
+
+/* ---------- Checkout details ---------- */
+.details { display: grid; gap: 14px; margin-top: 22px; }
+.details h3 { margin: 10px 0 0; font-size: 1.05rem; color: var(--heading); }
+.details label { display: grid; gap: 6px; font-weight: 700; font-size: .92rem; color: var(--heading); }
+.details input, .details textarea { font: inherit; font-size: 16px; padding: 12px 14px; border-radius: 12px; border: 1px solid #d9cfc8; background: #fff; color: var(--ink); }
+.details input:focus, .details textarea:focus { outline: 2px solid var(--wine); outline-offset: 1px; border-color: var(--wine); }
+.details .two { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.details .opt { font-weight: 400; color: var(--text); }
+.details .choice { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.details .choice label { display: block; cursor: pointer; }
+.details .choice input { position: absolute; opacity: 0; }
+.details .choice span { display: block; padding: 14px; border-radius: 14px; border: 2px solid #e6dcd5; background: #fff; font-weight: 400; transition: border-color .2s, background .2s; }
+.details .choice span b { display: block; font-size: 1rem; color: var(--ink); }
+.details .choice input:checked + span { border-color: var(--wine); background: #fbf3f4; }
+.details .choice input:focus-visible + span { outline: 2px solid var(--wine); outline-offset: 2px; }
+.details .who { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 12px; background: var(--cream); font-size: .92rem; }
+.details .who img { width: 30px; height: 30px; border-radius: 50%; }
+.details .saved { margin: 0; font-size: .85rem; color: var(--text); }
+@media (max-width: 560px) { .details .two { grid-template-columns: 1fr; } }

@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /billing
+Disallow: /signin
+Disallow: /auth/
+Sitemap: https://krivianbakery.com/sitemap.xml

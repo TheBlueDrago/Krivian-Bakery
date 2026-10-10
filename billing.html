@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#752336">
   <title>Checkout · Krivian Bakery</title>
   <link rel="icon" href="logo.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -50,6 +51,7 @@
           <a href="index.html#order">Order online</a>
           <a href="index.html#cookies">Our cookies</a>
           <a href="cart.html">Cart</a>
+          <a href="legal.html">Privacy &amp; Terms</a>
         </nav>
       </div>
       <div class="footer-bottom"><span>© <span id="year"></span> Krivian Bakery</span></div>
@@ -57,6 +59,30 @@
   </footer>
 
   <script>
+    // The details form: filled in from their Google login, and saved on this device as they type.
+    document.addEventListener('DOMContentLoaded', () => setTimeout(async () => {
+      const ids = ['d-name', 'd-phone', 'd-email', 'd-addr', 'd-date', 'd-notes'];
+      if (!document.getElementById('details')) return;
+      let saved = {}; try { saved = JSON.parse(localStorage.getItem('kb-details') || '{}'); } catch {}
+      ids.forEach((id) => { const el = document.getElementById(id); if (el && saved[id]) el.value = saved[id]; });
+      if (saved.how) document.querySelectorAll('input[name="d-how"]').forEach((r) => (r.checked = r.value === saved.how));
+      const date = document.getElementById('d-date'); date.min = new Date(Date.now() + 86400000).toISOString().slice(0, 10);
+      const addr = () => { document.getElementById('d-addr-row').hidden = document.querySelector('input[name="d-how"]:checked').value !== 'delivery'; };
+      const save = () => { const d = {}; ids.forEach((id) => (d[id] = document.getElementById(id).value)); d.how = document.querySelector('input[name="d-how"]:checked').value; try { localStorage.setItem('kb-details', JSON.stringify(d)); } catch {} addr(); };
+      document.getElementById('details').addEventListener('input', save);
+      document.getElementById('details').addEventListener('change', save);
+      addr();
+      try {
+        const me = await fetch('/auth/me').then((r) => r.json());
+        if (me.user) {
+          const who = document.getElementById('who'); who.hidden = false;
+          who.innerHTML = (me.user.picture ? '<img src="' + me.user.picture.replace(/"/g, '') + '" alt="" referrerpolicy="no-referrer">' : '') + '<span>Ordering as <b></b></span>';
+          who.querySelector('b').textContent = me.user.email;
+          const n = document.getElementById('d-name'), e = document.getElementById('d-email');
+          if (!n.value) n.value = me.user.name || ''; if (!e.value) e.value = me.user.email || '';
+        }
+      } catch {}
+    }, 0));
     // Payment isn't connected yet. This page shows the order and the steps that are coming.
     function renderPage(n) {
       const el = document.getElementById('checkout');
@@ -69,11 +95,24 @@
           <div class="card">
             <h2>Payment</h2>
             <div class="notice"><span>🔒</span><div><b>Online payment is coming soon</b>We're setting up secure checkout. Your cart is saved until then.</div></div>
-            <ol class="steps-list">
-              <li><div><b>Contact details</b>Name, email and phone number</div></li>
-              <li><div><b>Pickup or delivery</b>Choose how you get your cookies</div></li>
-              <li><div><b>Payment</b>Pay securely by card</div></li>
-            </ol>
+            <form class="details" id="details" autocomplete="on" onsubmit="return false">
+              <h3>Your details</h3>
+              <div class="who" id="who" hidden></div>
+              <div class="two">
+                <label>Name<input id="d-name" autocomplete="name" required></label>
+                <label>Phone<input id="d-phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="(555) 123-4567"></label>
+              </div>
+              <label>Email<input id="d-email" type="email" autocomplete="email" required></label>
+              <h3>How do you want your cookies?</h3>
+              <div class="choice">
+                <label><input type="radio" name="d-how" value="pickup" checked><span><b>Pickup</b>Pick them up fresh</span></label>
+                <label><input type="radio" name="d-how" value="delivery"><span><b>Delivery</b>We bring them to you</span></label>
+              </div>
+              <label id="d-addr-row" hidden>Delivery address<input id="d-addr" autocomplete="street-address" placeholder="Street, city, ZIP"></label>
+              <label>When do you want them?<input id="d-date" type="date"></label>
+              <label>Anything else? <span class="opt">(optional)</span><textarea id="d-notes" rows="3" placeholder="A gift message, a special request…"></textarea></label>
+              <p class="saved" id="d-saved">Saved on this device. It&rsquo;ll be ready when you pay.</p>
+            </form>
           </div>
           <aside class="card summary">
             <h2>Order summary</h2>
