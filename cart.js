@@ -143,11 +143,21 @@ document.addEventListener('DOMContentLoaded', async () => {
   box.className = 'auth';
   if (me.user) {
     const first = (me.user.name || '').split(' ')[0];
-    box.innerHTML = `<button class="avatar" type="button" aria-label="Signed in as ${first}. Sign out?"></button>`;
+    box.innerHTML = `<button class="avatar" type="button" aria-label="Your account (${first})"></button>`;
     const b = box.firstChild;
     if (me.user.picture) { const img = new Image(); img.src = me.user.picture; img.alt = ''; img.referrerPolicy = 'no-referrer'; b.appendChild(img); }
     else b.textContent = first.charAt(0).toUpperCase();
-    b.onclick = async () => { if (confirm(`Signed in as ${me.user.email}. Sign out?`)) { await fetch('/auth/logout', { method: 'POST' }); location.reload(); } };
+    const menu = document.createElement('div');
+    menu.className = 'acct-menu'; menu.hidden = true;
+    menu.innerHTML = '<div class="acct-who"><b></b><span></span></div><a href="/billing">Checkout</a><a href="/cart">My cart</a><button type="button">Log out</button>';
+    menu.querySelector('b').textContent = me.user.name || first;
+    menu.querySelector('span').textContent = me.user.email;
+    box.appendChild(menu);
+    b.setAttribute('aria-haspopup', 'true'); b.setAttribute('aria-expanded', 'false');
+    b.onclick = (e) => { e.stopPropagation(); menu.hidden = !menu.hidden; b.setAttribute('aria-expanded', String(!menu.hidden)); };
+    document.addEventListener('click', (e) => { if (!box.contains(e.target)) { menu.hidden = true; b.setAttribute('aria-expanded', 'false'); } });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') menu.hidden = true; });
+    menu.querySelector('button').onclick = async () => { await fetch('/auth/logout', { method: 'POST' }); try { localStorage.removeItem('kb-details'); } catch {} location.reload(); };
   } else {
     box.innerHTML = '<a class="pill light" href="/auth/google?next=' + encodeURIComponent(location.pathname.replace(/\.html$/, '')) + '">Log in</a>';
   }

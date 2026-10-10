@@ -357,3 +357,14 @@ h1, h2, h3, h4 { font-weight: 700; text-transform: uppercase; color: var(--headi
 .details .who img { width: 30px; height: 30px; border-radius: 50%; }
 .details .saved { margin: 0; font-size: .85rem; color: var(--text); }
 @media (max-width: 560px) { .details .two { grid-template-columns: 1fr; } }
+
+
+/* ---------- Account menu ---------- */
+.auth { position: relative; }
+.acct-menu { position: absolute; right: 0; top: calc(100% + 10px); min-width: 230px; background: var(--white); color: var(--ink); border-radius: 16px; box-shadow: 0 20px 50px -15px rgba(0,0,0,.35); padding: 8px; z-index: 50; }
+.acct-menu .acct-who { padding: 10px 12px 12px; border-bottom: 1px solid var(--line); margin-bottom: 6px; }
+.acct-menu .acct-who b { display: block; color: var(--ink); }
+.acct-menu .acct-who span { display: block; font-size: .85rem; color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.acct-menu a, .acct-menu button { display: block; width: 100%; text-align: left; padding: 10px 12px; border-radius: 10px; border: 0; background: none; font: inherit; color: var(--ink); text-decoration: none; cursor: pointer; }
+.acct-menu a:hover, .acct-menu button:hover { background: var(--cream); }
+.acct-menu button { color: var(--wine); font-weight: 700; }
