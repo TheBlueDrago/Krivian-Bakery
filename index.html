@@ -190,8 +190,10 @@
   </footer>
 
   <script>
-    // Hero slider: fades through the slides every 5 seconds; dots jump to a slide.
+    // Hero slider: fades through the slides every 5 seconds; dots jump to a slide. Swipe (or drag)
+    // to move: the picture follows your finger and slides out left or right.
     (() => {
+      const hero = document.querySelector('.hero');
       const slides = [...document.querySelectorAll('.slide')];
       const dots = document.querySelector('.dots');
       let i = 0, timer;
@@ -210,6 +212,47 @@
       function restart() { clearInterval(timer); timer = setInterval(() => show(i + 1), 5000); }
       show(0);
       restart();
+
+      // Swiping
+      let x0 = null, y0 = 0, dx = 0, sideways = null, busy = false;
+      const W = () => hero.clientWidth;
+      const place = (el, px, anim) => { el.style.transition = anim ? 'transform .45s cubic-bezier(.2,.8,.2,1)' : 'none'; el.style.transform = `translateX(${px}px)`; };
+      const reset = (el) => { el.style.transition = ''; el.style.transform = ''; el.style.opacity = ''; el.style.zIndex = ''; };
+      const neighbour = () => slides[(i + (dx < 0 ? 1 : -1) + slides.length) % slides.length];
+      hero.addEventListener('pointerdown', (e) => {
+        if (busy || e.button > 0 || e.target.closest('a, button')) return;
+        x0 = e.clientX; y0 = e.clientY; dx = 0; sideways = null; clearInterval(timer);
+      });
+      hero.addEventListener('pointermove', (e) => {
+        if (x0 === null) return;
+        dx = e.clientX - x0;
+        if (sideways === null && (Math.abs(dx) > 8 || Math.abs(e.clientY - y0) > 8)) sideways = Math.abs(dx) > Math.abs(e.clientY - y0);
+        if (!sideways) return;
+        const cur = slides[i], nb = neighbour();
+        slides.forEach((s) => { if (s !== cur && s !== nb) reset(s); });
+        cur.style.opacity = '1'; cur.style.zIndex = '1'; place(cur, dx, false);
+        nb.style.opacity = '1'; nb.style.zIndex = '1'; place(nb, dx + (dx < 0 ? W() : -W()), false);
+      });
+      const end = () => {
+        if (x0 === null) return;
+        x0 = null;
+        if (!sideways || dx === 0) { restart(); return; }
+        const cur = slides[i], nb = neighbour(), go = Math.abs(dx) > Math.min(90, W() * .18);
+        busy = true;
+        if (go) { place(cur, dx < 0 ? -W() : W(), true); place(nb, 0, true); }
+        else { place(cur, 0, true); place(nb, dx < 0 ? W() : -W(), true); }
+        setTimeout(() => {
+          const next = go ? slides.indexOf(nb) : i;
+          // swap without the fade: the old picture vanishes instantly, then styles go back to normal
+          slides.forEach((s) => { s.style.transition = 'none'; s.style.transform = ''; s.style.zIndex = ''; s.style.opacity = s === slides[next] ? '1' : '0'; });
+          show(next);
+          setTimeout(() => { slides.forEach(reset); busy = false; restart(); }, 40);
+        }, 470);
+      };
+      hero.addEventListener('pointerup', end);
+      hero.addEventListener('pointercancel', end);
+      hero.addEventListener('pointerleave', end);
+      hero.style.touchAction = 'pan-y';
     })();
   </script>
 </body>

@@ -36,7 +36,12 @@ export default {
       const state = b64u(crypto.getRandomValues(new Uint8Array(16)));
       const g = new URL("https://accounts.google.com/o/oauth2/v2/auth");
       g.search = new URLSearchParams({ client_id: env.GOOGLE_CLIENT_ID, redirect_uri: origin + "/auth/callback", response_type: "code", scope: "openid email profile", state, prompt: "select_account" });
-      return new Response(null, { status: 302, headers: { location: g.toString(), "set-cookie": setCookie("kb_state", state, 600) } });
+      // where to come back to afterwards (only pages on this site)
+      const next = url.searchParams.get("next") || "/";
+      const h = new Headers({ location: g.toString() });
+      h.append("set-cookie", setCookie("kb_state", state, 600));
+      h.append("set-cookie", setCookie("kb_next", /^\/[A-Za-z0-9/_-]*$/.test(next) ? next : "/", 600));
+      return new Response(null, { status: 302, headers: h });
     }
     if (path === "/auth/callback") {
       const back = (q) => Response.redirect(origin + "/" + q, 302);
@@ -50,7 +55,9 @@ export default {
       const info = await fetch("https://openidconnect.googleapis.com/v1/userinfo", { headers: { authorization: "Bearer " + tok.access_token } }).then((r) => r.json()).catch(() => ({}));
       if (!info.email || !info.email_verified) return back("?signin=failed");
       const session = await sign(env, { n: String(info.name || info.email.split("@")[0]).slice(0, 80), e: String(info.email).toLowerCase(), p: String(info.picture || "").slice(0, 400), exp: Date.now() + 30 * 86400000 });
-      const h = new Headers({ location: origin + "/?signin=ok" });
+      const next = /^\/[A-Za-z0-9/_-]*$/.test(cookie(req, "kb_next")) ? cookie(req, "kb_next") : "/";
+      const h = new Headers({ location: origin + next + (next.includes("?") ? "&" : "?") + "signin=ok" });
+      h.append("set-cookie", setCookie("kb_next", "", 0));
       h.append("set-cookie", setCookie("kb_session", session, 30 * 86400));
       h.append("set-cookie", setCookie("kb_state", "", 0));
       return new Response(null, { status: 302, headers: h });
@@ -62,6 +69,11 @@ export default {
     if (path === "/auth/logout") {
       if (req.method !== "POST") return new Response("Use POST", { status: 405 });
       return json({ ok: true }, 200, { "set-cookie": setCookie("kb_session", "", 0) });
+    }
+    // Checkout needs a Google sign-in (browsing and the cart don't). Once sign-in is set up.
+    if ((path === "/billing" || path === "/billing.html") && env.GOOGLE_CLIENT_ID) {
+      const s = await read(env, cookie(req, "kb_session")).catch(() => null);
+      if (!s) return Response.redirect(origin + "/signin?next=/billing", 302);
     }
     return env.ASSETS.fetch(req);
   },

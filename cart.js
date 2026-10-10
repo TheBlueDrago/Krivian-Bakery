@@ -149,7 +149,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     else b.textContent = first.charAt(0).toUpperCase();
     b.onclick = async () => { if (confirm(`Signed in as ${me.user.email}. Sign out?`)) { await fetch('/auth/logout', { method: 'POST' }); location.reload(); } };
   } else {
-    box.innerHTML = '<a class="pill light" href="/auth/google">Sign in</a>';
+    box.innerHTML = '<a class="pill light" href="/auth/google?next=' + encodeURIComponent(location.pathname.replace(/\.html$/, '')) + '">Log in</a>';
   }
   right.prepend(box);
   const q = new URLSearchParams(location.search).get('signin');
