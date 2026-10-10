@@ -130,3 +130,28 @@ document.addEventListener('DOMContentLoaded', () => {
   const year = document.getElementById('year');
   if (year) year.textContent = new Date().getFullYear();
 });
+
+// Sign in with Google: a "Sign in" pill in the header, or their picture once signed in
+// (tap it to sign out). Nothing shows until Google sign-in is set up on the Worker.
+document.addEventListener('DOMContentLoaded', async () => {
+  const right = document.querySelector('.bar-right');
+  if (!right) return;
+  let me = null;
+  try { me = await fetch('/auth/me').then(r => r.json()); } catch { return; }
+  if (!me || !me.enabled) return;
+  const box = document.createElement('div');
+  box.className = 'auth';
+  if (me.user) {
+    const first = (me.user.name || '').split(' ')[0];
+    box.innerHTML = `<button class="avatar" type="button" aria-label="Signed in as ${first}. Sign out?"></button>`;
+    const b = box.firstChild;
+    if (me.user.picture) { const img = new Image(); img.src = me.user.picture; img.alt = ''; img.referrerPolicy = 'no-referrer'; b.appendChild(img); }
+    else b.textContent = first.charAt(0).toUpperCase();
+    b.onclick = async () => { if (confirm(`Signed in as ${me.user.email}. Sign out?`)) { await fetch('/auth/logout', { method: 'POST' }); location.reload(); } };
+  } else {
+    box.innerHTML = '<a class="pill light" href="/auth/google">Sign in</a>';
+  }
+  right.prepend(box);
+  const q = new URLSearchParams(location.search).get('signin');
+  if (q) { history.replaceState(null, '', location.pathname + location.hash); if (q === 'failed') alert("Sign-in didn't work. Please try again."); }
+});

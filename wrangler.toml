@@ -1,0 +1,11 @@
+# The Krivian Bakery site: plain files in this folder, plus a small Worker (worker.js) for
+# "Sign in with Google". Google's keys are secrets on the Worker (Cloudflare dashboard,
+# Settings, Variables and Secrets): GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET.
+name = "krivian-bakery"
+main = "worker.js"
+compatibility_date = "2026-09-01"
+
+[assets]
+directory = "."
+binding = "ASSETS"
+run_worker_first = ["/auth/*"]
