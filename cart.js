@@ -1,6 +1,6 @@
 // Krivian Bakery cart: one order of 4, 8 or 12 cookies (12 max), in one flavor.
 // Prices are per order size, not per cookie.
-const PRICES = { 4: 28, 8: 56, 12: 84 }; // $7 per cookie
+const PRICES = { 4: 32, 8: 64, 12: 96 }; // $8 per cookie
 const SIZES = [4, 8, 12];
 const MAX = 12;
 const KEY = 'krivian-cart';
