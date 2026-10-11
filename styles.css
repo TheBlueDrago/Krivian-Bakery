@@ -472,3 +472,11 @@ h1, h2, h3, h4 { font-weight: 700; text-transform: uppercase; color: var(--headi
 .flavor-card.on { outline: 2px solid var(--wine); outline-offset: -2px; }
 .flavor-card.on .fc-pick { color: var(--wine); font-weight: 700; }
 @media (max-width: 900px) { .flavor-menu { grid-template-columns: repeat(2, 1fr); gap: 14px; } .flavor-card { padding: 12px 10px 16px; } .flavor-card b { font-size: .85rem; } .fc-pick { opacity: 1; transform: none; } }
+
+/* phones: the flavor picker is one swipeable row */
+@media (max-width: 900px) {
+  .flavor-wrap { margin: -28px 0 28px; min-width: 0; }
+  .flavor-wrap .flavors { display: flex; flex-wrap: nowrap; overflow-x: auto; scroll-snap-type: x mandatory; padding: 4px 24px 10px; gap: 10px; scrollbar-width: none; max-width: 100%; margin: 0; padding: 4px 2px 10px; }
+  .flavor-wrap .flavors::-webkit-scrollbar { display: none; }
+  .flavor-wrap .flavors button { flex: none; white-space: nowrap; scroll-snap-align: start; }
+}
