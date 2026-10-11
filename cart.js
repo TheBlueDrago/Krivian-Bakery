@@ -6,14 +6,14 @@ const MAX = 12;
 const KEY = 'krivian-cart';
 
 const FLAVORS = {
-  chip: { name: 'Chocolate Chip', img: 'img/chocolate-chip.jpg' },
-  triple: { name: 'Triple Chocolate', img: 'img/double-chocolate.jpg' },
-  walnut: { name: 'Chocolate Chip Walnut', img: 'img/chocolate-chip.jpg' },
-  twochip: { name: 'Two Chip Chocolate Chip', img: 'img/chocolate-chip.jpg' },
-  macadamia: { name: 'White Chocolate Macadamia', img: 'img/chocolate-chip.jpg' },
-  darkchip: { name: 'Dark Chocolate Chocolate Chip', img: 'img/double-chocolate.jpg' },
-  darkpb: { name: 'Dark Chocolate Peanut Butter Chip', img: 'img/double-chocolate.jpg' },
-  oatmeal: { name: 'Oatmeal Raisin', img: 'img/chocolate-chip.jpg' },
+  chip: { name: 'Chocolate Chip', img: 'img/chocolate-chip.jpg', tag: 'The classic' },
+  triple: { name: 'Triple Chocolate', img: 'img/double-chocolate.jpg', tag: 'For chocolate lovers' },
+  walnut: { name: 'Chocolate Chip Walnut', img: 'img/chocolate-chip.jpg', tag: 'Crunchy and rich' },
+  twochip: { name: 'Two Chip Chocolate Chip', img: 'img/chocolate-chip.jpg', tag: 'Double the chips' },
+  macadamia: { name: 'White Chocolate Macadamia', img: 'img/chocolate-chip.jpg', tag: 'Buttery and sweet' },
+  darkchip: { name: 'Dark Chocolate Chocolate Chip', img: 'img/double-chocolate.jpg', tag: 'Deep and fudgy' },
+  darkpb: { name: 'Dark Chocolate Peanut Butter Chip', img: 'img/double-chocolate.jpg', tag: 'Sweet and salty' },
+  oatmeal: { name: 'Oatmeal Raisin', img: 'img/chocolate-chip.jpg', tag: 'Old-school favorite' },
 };
 const FLAVOR_KEY = 'krivian-flavor';
 let memoryFlavor = 'chip';
@@ -126,6 +126,17 @@ function renderCart() {
     btn.classList.toggle('in-cart', inCart);
     btn.textContent = inCart ? 'In cart ✓' : 'Add to cart';
   });
+  const fk = getFlavor();
+  document.querySelectorAll('[data-flavor-menu]').forEach(el => {
+    if (!el.children.length) el.innerHTML = Object.entries(FLAVORS).map(([k, v]) => `
+      <button type="button" class="flavor-card" data-flavor="${k}" data-go-order>
+        <span class="fc-img"><img src="${v.img}" alt="${v.name} cookies" loading="lazy"></span>
+        <span class="fc-tag">${v.tag || ''}</span>
+        <b>${v.name}</b>
+        <span class="fc-pick">Pick this flavor →</span>
+      </button>`).join('');
+    el.querySelectorAll('[data-flavor]').forEach(b => b.classList.toggle('on', b.dataset.flavor === fk));
+  });
   document.querySelectorAll('[data-flavor-picker]').forEach(el => { el.innerHTML = flavorPicker(); });
   renderDrawer(n);
   if (typeof renderPage === 'function') renderPage(n);
@@ -139,7 +150,7 @@ document.addEventListener('click', e => {
   if (!t) return;
   if (t.matches('[data-add]')) { setCount(Number(t.dataset.add)); openCart(); }
   else if (t.matches('[data-size]')) setCount(Number(t.dataset.size));
-  else if (t.matches('[data-flavor]')) setFlavor(t.dataset.flavor);
+  else if (t.matches('[data-flavor]')) { setFlavor(t.dataset.flavor); if (t.matches('[data-go-order]')) document.getElementById('order')?.scrollIntoView({ behavior: 'smooth' }); }
   else if (t.matches('[data-clear]')) setCount(0);
   else if (t.matches('[data-open-cart]')) { e.preventDefault(); document.body.classList.remove('nav-open'); openCart(); }
   else if (t.matches('[data-menu-toggle]')) document.body.classList.toggle('nav-open');
