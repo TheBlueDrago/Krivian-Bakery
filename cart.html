@@ -71,6 +71,8 @@
           <div class="card">
             <h2>Your cookies</h2>
             ${lineItem(n, { picker: false })}
+            <p class="sizes-label">Flavor</p>
+            ${flavorPicker()}
             <p class="sizes-label">Change pack size</p>
             ${sizePicker(n)}
             <p class="hint">Cookies come in packs of 4. Max 12 per order.</p>

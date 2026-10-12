@@ -480,3 +480,12 @@ h1, h2, h3, h4 { font-weight: 700; text-transform: uppercase; color: var(--headi
   .flavor-wrap .flavors::-webkit-scrollbar { display: none; }
   .flavor-wrap .flavors button { flex: none; white-space: nowrap; scroll-snap-align: start; }
 }
+
+/* the hidden attribute always wins (e.g. the delivery address when Pickup is picked) */
+[hidden] { display: none !important; }
+
+/* cart page: flavors in a tidy two-column grid */
+.sizes-label + .flavors { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin: 10px 0 18px; }
+.sizes-label + .flavors button { font-size: .7rem; padding: 4px 10px 4px 4px; text-align: left; line-height: 1.2; min-height: 44px; }
+.sizes-label + .flavors button img { width: 32px; height: 32px; flex: none; }
+@media (min-width: 700px) { .sizes-label + .flavors { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
