@@ -489,3 +489,37 @@ h1, h2, h3, h4 { font-weight: 700; text-transform: uppercase; color: var(--headi
 .sizes-label + .flavors button { font-size: .7rem; padding: 4px 10px 4px 4px; text-align: left; line-height: 1.2; min-height: 44px; }
 .sizes-label + .flavors button img { width: 32px; height: 32px; flex: none; }
 @media (min-width: 700px) { .sizes-label + .flavors { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+
+/* checkout: pickup only */
+.pickup-note { margin: 4px 0 14px; padding: 12px 14px; border-radius: 12px; background: var(--cream); color: var(--ink); font-size: .92rem; line-height: 1.5; }
+
+/* ---------- Phones: shorter, quicker to order ---------- */
+@media (max-width: 760px) {
+  /* packs: compact rows, photo on the left */
+  .store-grid { grid-template-columns: 1fr; gap: 12px; }
+  .product { flex-direction: row; align-items: stretch; border-radius: 16px; }
+  .product:hover { transform: none; }
+  .product-img { width: 118px; flex: none; aspect-ratio: auto; }
+  .product-body { text-align: left; padding: 14px 16px; gap: 2px; }
+  .product-body h3 { font-size: 1.05rem; }
+  .product-body .sub { font-size: .8rem; }
+  .product-body .price { font-size: 1.3rem; margin: 2px 0 10px; }
+  .product-body .pill { padding: 10px 14px; font-size: .82rem; }
+  .ribbon { top: 8px; left: 8px; font-size: .58rem; padding: 4px 8px; letter-spacing: .08em; }
+  .store-note { font-size: .85rem; }
+
+  /* how it works: number on the left */
+  .steps-grid li { display: grid; grid-template-columns: 46px 1fr; column-gap: 14px; align-items: center; text-align: left; padding: 16px 18px; }
+  .steps-grid span { grid-row: span 2; margin: 0; width: 46px; height: 46px; font-size: 1.6rem; }
+  .steps-grid h3 { margin: 0; font-size: 1rem; }
+  .steps-grid p { font-size: .88rem; line-height: 1.45; }
+
+  /* the big photo sections */
+  .photo-pair img { height: 260px; }
+  .trio img { height: 240px; }
+  .trio .trio-text { padding: 26px 22px; }
+
+  /* section spacing */
+  .section { padding-top: 56px; padding-bottom: 56px; }
+  .title { margin-bottom: 28px; }
+}
